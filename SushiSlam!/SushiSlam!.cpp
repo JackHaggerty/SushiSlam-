@@ -46,7 +46,6 @@ public:
     virtual std::string str() const = 0;
 };
 
-
 class MakiRoll : public Card {
 public:
     MakiRoll(int numRolls) : m_numRolls(numRolls) {
