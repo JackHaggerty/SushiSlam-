@@ -41,7 +41,7 @@ class Player {
 };
 class Card {
 public:
-    enum CardType { MakiRoll_1, MakiRoll_2, MakiRoll_3, Tempura, Dumpling, Nigiri_egg, Nigiri_squid, Nigiri_salmon, Sashimi};
+    enum CardType { MakiRoll_1, MakiRoll_2, MakiRoll_3, Tempura_card, Dumpling_card, Nigiri_egg, Nigiri_squid, Nigiri_salmon, Sashimi_card};
     virtual CardType Type() const = 0;
     virtual std::string str() const = 0;
 };
@@ -69,7 +69,65 @@ private:
     int m_numRolls;
 };
 
+class Nigiri : public Card {
+public:
+    Nigiri(const std::string& protein) : m_protein(protein) {
+        if (protein == "Salmon") {
+            m_type = Nigiri_salmon;
+        }
+        else if (protein == "Egg") {
+            m_type = Nigiri_egg;
+        }
+        else if (protein == "Squid") {
+            m_type = Nigiri_squid;
+        }
+    }
+    virtual CardType Type() const override {
+        return m_type;
+    }
+    virtual std::string str() const override {
+        return "Nigiri ("+m_protein+")";
+    }
+private:
+    CardType m_type;
+    std::string m_protein;
+};
 
+class Sashimi : public Card {
+public:
+    virtual CardType Type() const override {
+        return m_type;
+    }
+    virtual std::string str() const override {
+        return "Sashimi";
+    }
+private:
+    CardType m_type = Sashimi_card;
+};
+
+class Dumpling : public Card {
+public:
+    virtual CardType Type() const override {
+        return m_type;
+    }
+    virtual std::string str() const override {
+        return "Dumpling";
+    }
+private:
+    CardType m_type = Dumpling_card;
+};
+
+class Tempura : public Card {
+public:
+    virtual CardType Type() const override {
+        return m_type;
+    }
+    virtual std::string str() const override {
+        return "Tempura";
+    }
+private:
+    CardType m_type = Tempura_card;
+};
 
 
 
@@ -78,9 +136,9 @@ int main()
     Game game;
     game.newGame();
 
-    //test
-    MakiRoll m(2);
-    std::cout << m.str() << std::endl;
     return 0;
+
+    
+
 }
 
