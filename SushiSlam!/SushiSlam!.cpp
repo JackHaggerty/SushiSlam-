@@ -1,20 +1,86 @@
-// SushiSlam!.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <string>
+class Game {
+public:
+    void newGame(){
+
+        printf(TITLE_TEXT);
+        
+
+    };
+    void endGame() {
+    };
+    void createDeck() {
+    };
+    void shuffle() {
+    };
+    void deal() {
+    };
+    void initialisePlayers() {
+    };
+    void turn() {
+    };
+    void swapHands() {
+    };
+
+private:
+    int numPlayers_;
+    int currentRound_; 
+    int currentTurn_; 
+    const char* TITLE_TEXT =
+        "|       |  | |  |       |  | |  |   |       |   |   |   _   |  |_|  |  |\n"
+        "|  _____|  | |  |  _____|  |_|  |   |  _____|   |   |  |_|  |       |  |\n"
+        "| |_____|  |_|  | |_____|       |   | |_____|   |   |       |       |  |\n"
+        "|_____  |       |_____  |       |   |_____  |   |___|       |       |__|\n"
+        " _____| |       |_____| |   _   |   |_____| |       |   _   | ||_|| |__\n"
+        "|_______|_______|_______|__| |__|___|_______|_______|__| |__|_|   |_|__|\n";
+
+};
+class Player {
+
+};
+class Card {
+public:
+    enum CardType { MakiRoll_1, MakiRoll_2, MakiRoll_3, Tempura, Dumpling, Nigiri_egg, Nigiri_squid, Nigiri_salmon, Sashimi};
+    virtual CardType Type() const = 0;
+    virtual std::string str() const = 0;
+};
+
+
+class MakiRoll : public Card {
+public:
+    MakiRoll(int numRolls) : m_numRolls(numRolls) {
+        switch (numRolls) {
+            // valid entries, once match is made, break
+            case 1: m_type = MakiRoll_1; break;
+            case 2: m_type = MakiRoll_2; break;
+            case 3: m_type = MakiRoll_3; break;
+        }
+    }
+    virtual CardType Type() const override { 
+        return m_type; 
+    }
+    // tostring
+    virtual std::string str() const override { 
+        return "MakiRoll (" + std::to_string(m_numRolls) + ")"; 
+    }
+private:
+    CardType m_type;
+    int m_numRolls;
+};
+
+
+
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Game game;
+    game.newGame();
+
+    //test
+    MakiRoll m(2);
+    std::cout << m.str() << std::endl;
+    return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
