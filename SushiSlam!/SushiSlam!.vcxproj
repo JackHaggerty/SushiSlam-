@@ -127,7 +127,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Dumpling.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="MakiRoll.cpp" />
+    <ClCompile Include="Nigiri.cpp" />
+    <ClCompile Include="Sashmini.cpp" />
+    <ClCompile Include="Tempura.cpp" />
     <ClCompile Include="SushiSlam!.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Dumpling.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Card.h" />
+    <ClInclude Include="Sashimi.h" />
+    <ClInclude Include="Tempura.h" />
+    <ClInclude Include="MakiRoll.h" />
+    <ClInclude Include="Nigiri.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
