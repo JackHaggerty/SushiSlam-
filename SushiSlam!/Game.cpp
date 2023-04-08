@@ -9,28 +9,33 @@
 #include "Tempura.h"
 #include "Dumpling.h"
 #include "Sashimi.h"
+#include <algorithm>
+#include <random>
+#include "Types.h"
+#include "Player.h"
 
-Game::Game() {
-    numPlayers_;
-    currentRound_;
-    currentTurn_;
-    TITLE_TEXT =
-        "|       |  | |  |       |  | |  |   |       |   |   |   _   |  |_|  |  |\n"
-        "|  _____|  | |  |  _____|  |_|  |   |  _____|   |   |  |_|  |       |  |\n"
-        "| |_____|  |_|  | |_____|       |   | |_____|   |   |       |       |  |\n"
-        "|_____  |       |_____  |       |   |_____  |   |___|       |       |__|\n"
-        " _____| |       |_____| |   _   |   |_____| |       |   _   | ||_|| |__\n"
-        "|_______|_______|_______|__| |__|___|_______|_______|__| |__|_|   |_|__|\n";
-};
+Game::Game() {};
+
 void Game::newGame() {
     printf(TITLE_TEXT);
-    std::vector<Card*> deck = createDeck();
+    CardCollection deck = createDeck();
+    initialisePlayers(deck);
+    // Output player hands
+    for (int i = 0; i < 2; i++) {
+        printf("%s's Hand:\n", players[i].getName().c_str());
+        CardCollection h = players[i].getHand();
+        for (Card* card : h) {
+            std::cout << card->str() << std::endl;
+        }
+    }
+
 }
 void Game::endGame() {
 
 }
 std::vector<Card*> Game::createDeck() {
-    std::vector<Card*> deck;
+
+    CardCollection deck;
 
     for (int i = 0; i < 14;i++) {
         deck.push_back(new Tempura());
@@ -52,11 +57,32 @@ std::vector<Card*> Game::createDeck() {
         deck.push_back(new MakiRoll(3));
 
     }
-
+    //shuffle the deck
+    std::vector<Card*> shuffleDeck{ deck.begin(), deck.end() };
+    std::shuffle(shuffleDeck.begin(), shuffleDeck.end(), std::mt19937{ std::random_device{}() });
+    deck = CardCollection{ shuffleDeck.begin(), shuffleDeck.end() };
     return deck;
 }
-//void shuffle();
-//void deal();
-//void initialisePlayers();
+
+void Game::initialisePlayers(CardCollection deck) {
+    CardCollection hand1;
+    CardCollection hand2;
+
+    for (int i = 0; i < 10; i++) {
+        hand1.push_back(deck.front());
+        deck.erase(deck.begin());
+
+    }
+    for (int i = 0; i < 10; i++) {
+        hand2.push_back(deck.front());
+        deck.erase(deck.begin());
+
+    }
+    players[0] = Player(hand1);
+    players[1] = Player(hand2);
+    
+}
+
+
 //void turn();
 //void swapHands();

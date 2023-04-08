@@ -132,6 +132,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MakiRoll.cpp" />
     <ClCompile Include="Nigiri.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sashmini.cpp" />
     <ClCompile Include="Tempura.cpp" />
     <ClCompile Include="SushiSlam!.cpp" />
@@ -140,6 +141,8 @@
     <ClInclude Include="Dumpling.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Card.h" />
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Sashimi.h" />
     <ClInclude Include="Tempura.h" />
     <ClInclude Include="MakiRoll.h" />

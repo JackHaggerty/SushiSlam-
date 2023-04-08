@@ -1,21 +1,21 @@
 #pragma once
 #include <vector>
 #include "Card.h"
-
+#include "Types.h"
+#include "Player.h"
 class Game {
 public:
     Game();
     void newGame();
     void endGame();
     std::vector<Card*> createDeck();           
-    void shuffle();
-    void deal();
-    void initialisePlayers();
-    void turn();
-    void swapHands();
+    //void shuffle();
+    void initialisePlayers(CardCollection deck);
+    //void turn();
+    //void swapHands();
 
 private:
-    int numPlayers_;
+    Player players[2];
     int currentRound_;
     int currentTurn_;
     const char* TITLE_TEXT =
