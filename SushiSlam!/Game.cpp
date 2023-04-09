@@ -17,16 +17,37 @@
 Game::Game() {};
 
 void Game::newGame() {
-    printf(TITLE_TEXT);
+    
     CardCollection deck = createDeck();
     initialisePlayers(deck);
-    // Output player hands
-    for (int i = 0; i < 2; i++) {
-        printf("%s's Hand:\n", players[i].getName().c_str());
-        CardCollection h = players[i].getHand();
-        for (Card* card : h) {
-            std::cout << card->str() << std::endl;
+    printf(TITLE_TEXT);
+    printf("\n~~~ round 1/3 ~~~\n");
+    int x = 0;
+    while (x != 1) {
+        // Output player hands
+        for (int i = 0; i < 2; i++) {
+            CardCollection t = players[i].getTableau();
+            CardCollection h = players[i].getHand();
+
+
+            printf("PLAYER %s TURN\n", players[i].getName().c_str());
+            printf("%s's Hand:\n", players[i].getName().c_str());
+            printf("Tableau:\n");
+            for (int i = 0; i < t.size(); i++) {
+                printf("%d\n", t[i]->str().c_str());
+            }
+            for (int i = 0; i < h.size(); i++) {
+                printf("%d. %s\n", i + 1, h[i]->str().c_str());
+            }
+            int num;
+            std::cout << "Select a card to add to your tableau: ";
+            std::cin >> num;
+            t.push_back(h[num - 1]);
+            h.erase(h[num - 1]);
+
+ 
         }
+
     }
 
 }

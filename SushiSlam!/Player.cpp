@@ -16,10 +16,6 @@ void Player::clearTableau()
 {
 }
 
-void Player::tableau()
-{
-}
-
 std::string Player::getName()
 {
 	return name;
@@ -28,4 +24,7 @@ std::string Player::getName()
 CardCollection Player::getHand()
 {
 	return hand;
+}
+CardCollection Player::getTableau() {
+	return tableau;
 }
