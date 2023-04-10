@@ -1,8 +1,7 @@
 #include "Player.h"
 #include "Types.h"
 
-Player::Player(){}
-Player::Player(CardCollection hand) : hand(hand) {}
+Player::Player() : name(name), hand(CardCollection()), tableau(CardCollection()) {}
 
 void Player::addToTableau() const
 {
@@ -21,7 +20,7 @@ std::string Player::getName()
 	return name;
 }
 
-CardCollection Player::getHand()
+CardCollection& Player::getHand()
 {
 	return hand;
 }

@@ -5,12 +5,12 @@ class Player
 {
 public:
 	Player();
-	Player(CardCollection hand);
+
 	void addToTableau() const;
 	void calcScore();
 	void clearTableau();
 	std::string getName();
-	CardCollection getHand();
+	CardCollection& getHand();
 	CardCollection getTableau();
 private:
 	std::string names[10] = { "Sam", "Billy", "Jen", "Bob", "Sally", "Joe", "Sue", "Sasha", "Tina", "Marge" }; ;

@@ -8,16 +8,16 @@ public:
     Game();
     void newGame();
     void endGame();
-    std::vector<Card*> createDeck();           
-    //void shuffle();
-    void initialisePlayers(CardCollection deck);
+    std::vector<Card*> createDeck();
+    void initialisePlayers();
+    void deal(CardCollection& deck, Player& p1, Player& p2);
     //void turn();
     //void swapHands();
 
 private:
     Player players[2];
-    int currentRound_;
-    int currentTurn_;
+    int currentRound = 1;
+    Player currentTurn;
     const char* TITLE_TEXT =
         "|       |  | |  |       |  | |  |   |       |   |   |   _   |  |_|  |  |\n"
         "|  _____|  | |  |  _____|  |_|  |   |  _____|   |   |  |_|  |       |  |\n"
