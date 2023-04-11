@@ -44,9 +44,8 @@ void Game::newGame() {
                 
                 printf("\nPLAYER %s TURN\n", currentTurn->getName().c_str());
                 printf("Tableau:\n");
-                for (int i = 0; i < t.size(); i++) {
-                    printf("%s\n", t[i]->str().c_str());
-                }
+                // return tableau 
+                currentTurn->returnTableau(t);
                 printf("Current hand:\n");
                 for (int i = 0; i < h.size(); i++) {
                     printf("%d. %s\n",i + 1, h[i]->str().c_str());
@@ -56,12 +55,34 @@ void Game::newGame() {
                 int num;
                 std::cout << "Select a card to add to your tableau: ";
                 std::cin >> num;
-                t.push_back(h[num - 1]);
-                h.erase(h.begin() + num - 1);
-
-
+                currentTurn->addToTableau(num, h, t);
             }
+            // swap hands after each player has placed a card into their tableau
+            swapHands(p1, p2);
         }
+        // calculate scores
+        int p1Score = p1->calcScore(p1->getTableau());
+        int p2Score = p2->calcScore(p2->getTableau());
+        // count maki rolls
+        int p1MakiCount = p1->makiCount(p1->getTableau());
+        int p2MakiCount = p2->makiCount(p2->getTableau());
+
+        if (p1MakiCount > p2MakiCount) {
+            p1Score += 6;
+            p2Score += 3;
+        }
+        else if (p2MakiCount > p1MakiCount) {
+            p2Score += 6;
+            p1Score += 3;
+        }
+        else if (p2MakiCount == p1MakiCount) {
+            p2Score += 3;
+            p1Score += 3;
+        }
+
+        printf("\n~~~ end of round scoring ~~~\n");
+        printf("    PLAYER %s round score: %d\n", p1->getName().c_str(), p1Score);
+        printf("    PLAYER %s round score: %d\n", p2->getName().c_str(), p2Score);
         currentRound++;
     }
 }
@@ -141,6 +162,7 @@ void Game::deal(CardCollection& deck, Player* p1, Player* p2)
     //std::cout << std::endl;
 }
 
-
-//void turn();
-//void swapHands();
+void Game::swapHands(Player* p1, Player* p2)
+{
+    std::swap(p1->getHand(), p2->getHand());
+}

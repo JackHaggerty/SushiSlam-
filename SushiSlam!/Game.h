@@ -11,8 +11,7 @@ public:
     std::vector<Card*> createDeck();
     void initialisePlayers();
     void deal(CardCollection& deck, Player* p1, Player* p2);
-    //void turn();
-    //void swapHands();
+    void swapHands(Player* p1, Player* p2);
 
 private:
     Player* players[2];

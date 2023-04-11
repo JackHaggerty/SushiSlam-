@@ -6,16 +6,19 @@ class Player
 public:
 	Player();
 
-	void addToTableau() const;
-	void calcScore();
+	void addToTableau(int num, CardCollection& h, CardCollection& t) const;
+	void returnTableau(CardCollection& t);
+	int calcScore(CardCollection& t);
+	int makiCount(CardCollection& t);
 	void clearTableau();
 	std::string& getName();
 	CardCollection& getHand();
 	CardCollection& getTableau();
+	int getTotalScore();
 private:
-	std::string names[10] = { "Sam", "Billy", "Jen", "Bob", "Sally", "Joe", "Sue", "Sasha", "Tina", "Marge" }; ;
+
 	int totalScore;
-	std::string name = names[rand() % 10];
+	std::string name;
 	CardCollection hand;
 	CardCollection tableau;
 };
