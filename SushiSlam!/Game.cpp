@@ -20,8 +20,8 @@ void Game::newGame() {
     currentRound = 1;
     CardCollection deck = createDeck();
     initialisePlayers();
-    Player p1 = players[0];
-    Player p2 = players[1];
+    Player* p1 = players[0];
+    Player* p2 = players[1];
 
     printf(TITLE_TEXT);
     // round loop 
@@ -32,17 +32,17 @@ void Game::newGame() {
         // from the deck, deal 10 cards to each player at beginning of each round
         deal(deck, p1, p2);
         // Print hand size for debugging
-        std::cout << "Hand size: " << players[0].getHand().size() << std::endl;
+        std::cout << "Hand size: " << players[0]->getHand().size() << std::endl;
 
         // loop
-        while (p1.getHand().size() > 0 && p2.getHand().size() > 0) {
+        while (p1->getHand().size() > 0 && p2->getHand().size() > 0) {
             for (int i = 0; i < 2; i++) {
                 //current players turn
-                currentTurn = players[i];
-                CardCollection t = currentTurn.getTableau();
-                CardCollection h = currentTurn.getHand();
-
-                printf("\nPLAYER %s TURN\n", currentTurn.getName().c_str());
+                Player * currentTurn = players[i];
+                CardCollection t = currentTurn->getTableau();
+                CardCollection h = currentTurn->getHand();
+                
+                printf("\nPLAYER %s TURN\n", currentTurn->getName().c_str());
                 printf("Tableau:\n");
                 for (int i = 0; i < t.size(); i++) {
                     printf("%s\n", t[i]->str().c_str());
@@ -131,12 +131,12 @@ std::vector<Card*> Game::createDeck() {
 
 void Game::initialisePlayers() {
 
-    players[0] = Player();
-    players[1] = Player();
+    players[0] = new Player();
+    players[1] = new Player();
     
 }
 
-void Game::deal(CardCollection& deck, Player& p1, Player& p2)
+void Game::deal(CardCollection& deck, Player* p1, Player* p2)
 {
     std::cout << "Deck: ";
     for (int i = 0; i < deck.size(); i++) {
@@ -148,22 +148,22 @@ void Game::deal(CardCollection& deck, Player& p1, Player& p2)
     //deals card to players
     for (int i = 0; i < 10; i++) {
         // player 1 hand
-        p1.getHand().push_back(deck.front());
+        p1->getHand().push_back(deck.front());
         deck.erase(deck.begin());
         // player 2 hand
-        p2.getHand().push_back(deck.front());
+        p2->getHand().push_back(deck.front());
         deck.erase(deck.begin());
     }
     // Print player hands for debugging
     std::cout << "Player 1 Hand: ";
-    CardCollection h1 = p1.getHand();
+    CardCollection h1 = p1->getHand();
     for (int i = 0; i < h1.size(); i++) {
         std::cout << h1[i]->str() << " ";
     }
     std::cout << std::endl;
 
     std::cout << "Player 2 Hand: ";
-    CardCollection h2 = p2.getHand();
+    CardCollection h2 = p2->getHand();
     for (int i = 0; i < h2.size(); i++) {
         std::cout << h2[i]->str() << " ";
     }
