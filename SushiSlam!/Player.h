@@ -9,9 +9,9 @@ public:
 	void addToTableau() const;
 	void calcScore();
 	void clearTableau();
-	std::string getName();
+	std::string& getName();
 	CardCollection& getHand();
-	CardCollection getTableau();
+	CardCollection& getTableau();
 private:
 	std::string names[10] = { "Sam", "Billy", "Jen", "Bob", "Sally", "Joe", "Sue", "Sasha", "Tina", "Marge" }; ;
 	int totalScore;

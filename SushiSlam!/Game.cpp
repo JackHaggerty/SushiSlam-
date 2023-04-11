@@ -32,15 +32,15 @@ void Game::newGame() {
         // from the deck, deal 10 cards to each player at beginning of each round
         deal(deck, p1, p2);
         // Print hand size for debugging
-        std::cout << "Hand size: " << players[0]->getHand().size() << std::endl;
+        //std::cout << "Hand size: " << players[0]->getHand().size() << std::endl;
 
         // loop
         while (p1->getHand().size() > 0 && p2->getHand().size() > 0) {
             for (int i = 0; i < 2; i++) {
                 //current players turn
                 Player * currentTurn = players[i];
-                CardCollection t = currentTurn->getTableau();
-                CardCollection h = currentTurn->getHand();
+                CardCollection& t = currentTurn->getTableau();
+                CardCollection& h = currentTurn->getHand();
                 
                 printf("\nPLAYER %s TURN\n", currentTurn->getName().c_str());
                 printf("Tableau:\n");
@@ -52,7 +52,7 @@ void Game::newGame() {
                     printf("%d. %s\n",i + 1, h[i]->str().c_str());
                 }
 
-
+                // remove cards from hand and place into the tableau
                 int num;
                 std::cout << "Select a card to add to your tableau: ";
                 std::cin >> num;
@@ -62,38 +62,8 @@ void Game::newGame() {
 
             }
         }
-
         currentRound++;
     }
-
-
-    
-
-    // Output player hands
-    //for (int i = 0; i < 2; i++) {
-    //    CardCollection t = players[i].getTableau();
-    //    CardCollection h = players[i].getHand();
-
-
-    //    printf("PLAYER %s TURN\n", players[i].getName().c_str());
-    //    printf("%s's Hand:\n", players[i].getName().c_str());
-    //    printf("Tableau:\n");
-    //    for (int i = 0; i < t.size(); i++) {
-    //        printf("%d\n", t[i]->str().c_str());
-    //    }
-    //    for (int i = 0; i < h.size(); i++) {
-    //        printf("%d. %s\n", i + 1, h[i]->str().c_str());
-    //    }
-    //    int num;
-    //    std::cout << "Select a card to add to your tableau: ";
-    //    std::cin >> num;
-    //    t.push_back(h[num - 1]);
-    //    h.erase(h[num - 1]);
-
- 
-    //}
-    
-
 }
 void Game::endGame() {
 
@@ -138,11 +108,12 @@ void Game::initialisePlayers() {
 
 void Game::deal(CardCollection& deck, Player* p1, Player* p2)
 {
-    std::cout << "Deck: ";
-    for (int i = 0; i < deck.size(); i++) {
-        std::cout << deck[i]->str() << " ";
-    }
-    std::cout << std::endl;
+    // print deck for debugging
+    //std::cout << "Deck: ";
+    //for (int i = 0; i < deck.size(); i++) {
+    //    std::cout << deck[i]->str() << " ";
+    //}
+    //std::cout << std::endl;
 
 
     //deals card to players
@@ -155,19 +126,19 @@ void Game::deal(CardCollection& deck, Player* p1, Player* p2)
         deck.erase(deck.begin());
     }
     // Print player hands for debugging
-    std::cout << "Player 1 Hand: ";
-    CardCollection h1 = p1->getHand();
-    for (int i = 0; i < h1.size(); i++) {
-        std::cout << h1[i]->str() << " ";
-    }
-    std::cout << std::endl;
+    //std::cout << "Player 1 Hand: ";
+    //CardCollection h1 = p1->getHand();
+    //for (int i = 0; i < h1.size(); i++) {
+    //    std::cout << h1[i]->str() << " ";
+    //}
+    //std::cout << std::endl;
 
-    std::cout << "Player 2 Hand: ";
-    CardCollection h2 = p2->getHand();
-    for (int i = 0; i < h2.size(); i++) {
-        std::cout << h2[i]->str() << " ";
-    }
-    std::cout << std::endl;
+    //std::cout << "Player 2 Hand: ";
+    //CardCollection h2 = p2->getHand();
+    //for (int i = 0; i < h2.size(); i++) {
+    //    std::cout << h2[i]->str() << " ";
+    //}
+    //std::cout << std::endl;
 }
 
 
