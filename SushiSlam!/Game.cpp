@@ -31,31 +31,35 @@ void Game::newGame() {
 
         // from the deck, deal 10 cards to each player at beginning of each round
         deal(deck, p1, p2);
-        // Print hand size for debugging
-        //std::cout << "Hand size: " << players[0]->getHand().size() << std::endl;
+
 
         // loop
         while (p1->getHand().size() > 0 && p2->getHand().size() > 0) {
+            // for loop to swap from player to player
             for (int i = 0; i < 2; i++) {
                 //current players turn
-                Player * currentTurn = players[i];
-                CardCollection& t = currentTurn->getTableau();
-                CardCollection& h = currentTurn->getHand();
+                Player * currentPlayer = players[i];
+                // current players tableau
+                CardCollection& t = currentPlayer->getTableau();
+                // current players hand
+                CardCollection& h = currentPlayer->getHand();
                 
-                printf("\nPLAYER %s TURN\n", currentTurn->getName().c_str());
+                printf("\nPLAYER %s TURN\n", currentPlayer->getName().c_str());
                 printf("Tableau:\n");
+
                 // return tableau 
-                currentTurn->returnTableau(t);
+                currentPlayer->returnTableau(t);
                 printf("Current hand:\n");
                 for (int i = 0; i < h.size(); i++) {
                     printf("%d. %s\n",i + 1, h[i]->str().c_str());
                 }
 
-                // remove cards from hand and place into the tableau
+                // prompt user to choose a chard to add to their tableau
                 int num;
                 std::cout << "Select a card to add to your tableau: ";
                 std::cin >> num;
-                currentTurn->addToTableau(num, h, t);
+                // remove cards from hand and place into the tableau
+                currentPlayer->addToTableau(num, h, t);
             }
             // swap hands after each player has placed a card into their tableau
             swapHands(p1, p2);
@@ -83,11 +87,30 @@ void Game::newGame() {
         printf("\n~~~ end of round scoring ~~~\n");
         printf("    PLAYER %s round score: %d\n", p1->getName().c_str(), p1Score);
         printf("    PLAYER %s round score: %d\n", p2->getName().c_str(), p2Score);
+
+        // clear tableaus
+        p1->clearTableau();
+        p2->clearTableau();
+        
+
         currentRound++;
+    }
+    // game end
+    printf("\n~~~ End of game! ~~~\n");
+    printf("    PLAYER %s final score: %d\n", p1->getName().c_str(), p1->getTotalScore());
+    printf("    PLAYER %s final score: %d\n", p2->getName().c_str(), p2->getTotalScore());
+    if (p1->getTotalScore() > p2->getTotalScore()) {
+        printf("PLAYER %s WINS!", p1->getName().c_str());
+    }
+    else if (p2->getTotalScore() > p1->getTotalScore()) {
+        printf("PLAYER %s WINS!", p2->getName().c_str());
+    }
+    else {
+        printf("SCORES EVEN, ITS A TIE!");
     }
 }
 void Game::endGame() {
-
+     
 }
 std::vector<Card*> Game::createDeck() {
 
@@ -129,14 +152,6 @@ void Game::initialisePlayers() {
 
 void Game::deal(CardCollection& deck, Player* p1, Player* p2)
 {
-    // print deck for debugging
-    //std::cout << "Deck: ";
-    //for (int i = 0; i < deck.size(); i++) {
-    //    std::cout << deck[i]->str() << " ";
-    //}
-    //std::cout << std::endl;
-
-
     //deals card to players
     for (int i = 0; i < 10; i++) {
         // player 1 hand
@@ -146,20 +161,7 @@ void Game::deal(CardCollection& deck, Player* p1, Player* p2)
         p2->getHand().push_back(deck.front());
         deck.erase(deck.begin());
     }
-    // Print player hands for debugging
-    //std::cout << "Player 1 Hand: ";
-    //CardCollection h1 = p1->getHand();
-    //for (int i = 0; i < h1.size(); i++) {
-    //    std::cout << h1[i]->str() << " ";
-    //}
-    //std::cout << std::endl;
 
-    //std::cout << "Player 2 Hand: ";
-    //CardCollection h2 = p2->getHand();
-    //for (int i = 0; i < h2.size(); i++) {
-    //    std::cout << h2[i]->str() << " ";
-    //}
-    //std::cout << std::endl;
 }
 
 void Game::swapHands(Player* p1, Player* p2)

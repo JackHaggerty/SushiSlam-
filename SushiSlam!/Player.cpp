@@ -103,6 +103,7 @@ int Player::makiCount(CardCollection& t)
 
 void Player::clearTableau()
 {
+	tableau.clear();
 }
 
 std::string& Player::getName()
