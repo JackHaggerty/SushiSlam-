@@ -23,6 +23,7 @@ void Game::newGame() {
     Player* p1 = players[0];
     Player* p2 = players[1];
 
+    // sushi slam title
     printf(TITLE_TEXT);
     // round loop 
     while (currentRound < 4) {
@@ -33,7 +34,7 @@ void Game::newGame() {
         deal(deck, p1, p2);
 
 
-        // loop
+        // loop for current round, swapping hands and choosing cards
         while (p1->getHand().size() > 0 && p2->getHand().size() > 0) {
             // for loop to swap from player to player
             for (int i = 0; i < 2; i++) {
@@ -49,6 +50,7 @@ void Game::newGame() {
 
                 // return tableau 
                 currentPlayer->returnTableau(t);
+                // return current players hand
                 printf("Current hand:\n");
                 for (int i = 0; i < h.size(); i++) {
                     printf("%d. %s\n",i + 1, h[i]->str().c_str());
@@ -97,8 +99,10 @@ void Game::newGame() {
     }
     // game end
     printf("\n~~~ End of game! ~~~\n");
+    // final scores for the 3 rounds played
     printf("    PLAYER %s final score: %d\n", p1->getName().c_str(), p1->getTotalScore());
     printf("    PLAYER %s final score: %d\n", p2->getName().c_str(), p2->getTotalScore());
+    // calculate winner
     if (p1->getTotalScore() > p2->getTotalScore()) {
         printf("PLAYER %s WINS!", p1->getName().c_str());
     }
@@ -108,30 +112,48 @@ void Game::newGame() {
     else {
         printf("SCORES EVEN, ITS A TIE!");
     }
+    // end game clean up memory
+    endGame(deck);
 }
-void Game::endGame() {
-     
+void Game::endGame(CardCollection& deck) {
+     //clean up memory 
+    // players
+    for (int i = 0; i < 2; i++) {
+        delete players[i];
+    }
+    delete[] players;
+
+    // deck
+    for (int i = 0; i < deck.size(); i++) {
+        delete deck[i];
+    }
+    deck.clear();
+
+
 }
 std::vector<Card*> Game::createDeck() {
 
     CardCollection deck;
-
+    // 14 Tempura, Dumping, Sashimi cards
     for (int i = 0; i < 14;i++) {
         deck.push_back(new Tempura());
         deck.push_back(new Dumpling());
         deck.push_back(new Sashimi());
     }
+    // 5 egg, squid cards and 10 salmon
     for (int i = 0; i < 5;i++) {
         deck.push_back(new Nigiri("Egg"));
         deck.push_back(new Nigiri("Squid"));
         deck.push_back(new Nigiri("Salmon"));
         deck.push_back(new Nigiri("Salmon"));
     }
+    // 6 Makiroll (1), 12 Makiroll (2)
     for (int i = 0; i < 6; i++) {
         deck.push_back(new MakiRoll(1));
         deck.push_back(new MakiRoll(2));
         deck.push_back(new MakiRoll(2));
     }
+    // 8 Makiroll (3)
     for (int i = 0; i < 8; i++) {
         deck.push_back(new MakiRoll(3));
 

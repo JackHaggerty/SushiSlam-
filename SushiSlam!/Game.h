@@ -7,7 +7,7 @@ class Game {
 public:
     Game();
     void newGame();
-    void endGame();
+    void endGame(CardCollection& deck);
     std::vector<Card*> createDeck();
     void initialisePlayers();
     void deal(CardCollection& deck, Player* p1, Player* p2);

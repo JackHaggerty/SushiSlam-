@@ -6,7 +6,7 @@ class Player
 public:
 	Player();
 
-	void addToTableau(int num, CardCollection& h, CardCollection& t) const;
+	void addToTableau(int num, CardCollection& h, CardCollection& t);
 	void returnTableau(CardCollection& t);
 	int calcScore(CardCollection& t);
 	int makiCount(CardCollection& t);

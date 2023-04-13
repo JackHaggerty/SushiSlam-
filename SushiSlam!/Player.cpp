@@ -6,7 +6,7 @@ Player::Player() : name(""), hand(CardCollection()), tableau(CardCollection()) {
 	name = names[rand() % 10];
 }
 
-void Player::addToTableau(int num, CardCollection& h, CardCollection& t) const
+void Player::addToTableau(int num, CardCollection& h, CardCollection& t)
 {
 	t.push_back(h[num - 1]);
 	h.erase(h.begin() + num - 1);
@@ -24,7 +24,6 @@ int Player::calcScore(CardCollection& t)
 	int tempuraCount = 0;
 	int sashimiCount = 0;
 	int dumplingCount = 0;
-	int makiCount = 0;
 	int egg = 0;
 	int salmon = 0;
 	int squid = 0;
@@ -39,7 +38,6 @@ int Player::calcScore(CardCollection& t)
 		else if (t[i]->str() == "Dumpling") {
 			dumplingCount++;
 		}
-
 		else if (t[i]->str() == "Nigiri (Egg)") {
 			egg++;
 		}
@@ -85,6 +83,7 @@ int Player::calcScore(CardCollection& t)
 
 int Player::makiCount(CardCollection& t)
 {
+	// maki count returns the number of rolls to be compared between players
 	int makiCount = 0;
 	for (int i = 0; i < 10; i++) {
 		if (t[i]->str() == "MakiRoll (1)") {
