@@ -8,7 +8,7 @@ public:
     Game();
     void newGame();
     void endGame(CardCollection& deck);
-    std::vector<Card*> createDeck();
+    CardCollection createDeck();
     void initialisePlayers();
     void deal(CardCollection& deck, Player* p1, Player* p2);
     void swapHands(Player* p1, Player* p2);
@@ -16,7 +16,7 @@ public:
 private:
     Player* players[2];
     int currentRound = 1;
-    Player currentTurn;
+    Player currentPlayer;
     const char* TITLE_TEXT =
         "|       |  | |  |       |  | |  |   |       |   |   |   _   |  |_|  |  |\n"
         "|  _____|  | |  |  _____|  |_|  |   |  _____|   |   |  |_|  |       |  |\n"
